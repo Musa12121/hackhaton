@@ -6,6 +6,7 @@
 
 | | |
 |---|---|
+| **Live demo** | https://hesabcheckfrontend.testgrelo.online |
 | **Backend** | Django REST API — separate repository (`hackaton`), live: https://hesabcheck.testgrelo.online/api/docs/ |
 | **Stack** | React 19 · Vite 8 · Vitest · Testing Library |
 | **Tests** | 111 tests, ~98% line coverage |
@@ -304,6 +305,10 @@ Open http://localhost:5173 — the system opens directly.
 
 Restart `npm run dev` after changing `.env`.
 
+### Production
+
+Live at **https://hesabcheckfrontend.testgrelo.online**. Every push to `main` runs CI (lint, tests, build, Docker image); the server deploys the newest successful commit automatically within ~2 minutes. In production the frontend's nginx container plays the role of the Vite proxy and adds the backend token server-side. Details: [deploy/README.md](deploy/README.md).
+
 ### Scripts
 
 | Command | What it does |
@@ -359,7 +364,7 @@ Helpers:
 ## 14. Limitations
 
 - **Demo version without file encryption at rest** — see [Data protection and encryption](#9-data-protection-and-encryption).
-- **The missing login screen is for local use.** Automatic backend login works through the Vite dev server (and `preview`) proxy. Hosting the `npm run build` output elsewhere requires a server-side proxy doing the same job.
+- **No login screen — also on the public demo.** Locally the Vite proxy, in production the nginx container adds the backend token. Anyone who opens the demo URL works as the demo user (API calls are rate-limited). Use synthetic documents only; real company data needs authentication in front of the site.
 - **Files are selected by clicking** — drag & drop is not implemented yet.
 - **AI accuracy** depends on the backend and has not been measured on real company documents; that is why the interface keeps the source of every number and the ability to correct it.
 - **Invoices with VAT** currently result in “Human review” (a backend limitation).
@@ -384,6 +389,9 @@ hackhaton/
 │   ├── App.css, index.css          # Styles
 │   └── main.jsx
 ├── test-files/                     # Documents for manual testing
+├── deploy/                         # nginx templates, compose, pull-based deploy script, systemd timer
+├── .github/workflows/ci.yml        # CI: lint, tests, build, Docker image
+├── Dockerfile                      # Build + nginx runtime image
 ├── vite.config.js                  # Proxy + automatic backend login + test settings
 ├── .env.example                    # Environment variables example
 └── package.json

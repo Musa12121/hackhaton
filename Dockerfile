@@ -10,6 +10,7 @@ RUN npm run build
 FROM nginx:1.27-alpine
 COPY deploy/nginx.conf.template /etc/nginx/templates/default.conf.template
 COPY deploy/backend-proxy.inc.template /etc/nginx/templates/backend-proxy.inc.template
+COPY deploy/security-headers.inc.template /etc/nginx/templates/security-headers.inc.template
 COPY --from=build /app/dist /usr/share/nginx/html
 ENV NGINX_ENVSUBST_FILTER=^BACKEND_
 EXPOSE 8080
