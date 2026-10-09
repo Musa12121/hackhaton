@@ -1,0 +1,9 @@
+[Unit]
+Description=HesabCheck frontend continuous deployment
+After=docker.service network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/root/hesabcheck-frontend/bin/deploy
+TimeoutStartSec=900

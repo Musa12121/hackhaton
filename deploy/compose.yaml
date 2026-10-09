@@ -1,0 +1,28 @@
+name: hesabcheck-frontend
+services:
+  web:
+    image: hesabcheck-frontend:${RELEASE_SHA:?required}
+    restart: unless-stopped
+    env_file: /root/hesabcheck-frontend/.env
+    networks:
+      proxy:
+        aliases: [hesabcheck-frontend]
+    mem_limit: 64m
+    cpus: 0.25
+    pids_limit: 64
+    security_opt: [no-new-privileges:true]
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:8080/healthz"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 5s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+networks:
+  proxy:
+    external: true
+    name: hospital-appointment-demo_default

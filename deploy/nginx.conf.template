@@ -1,0 +1,63 @@
+# Frontend container: serves the built SPA and proxies /api to the HesabCheck backend.
+# The browser never sees the token: it is injected here from the BACKEND_TOKEN environment variable.
+limit_req_zone $binary_remote_addr zone=hc_api:10m rate=5r/s;
+limit_req_zone $binary_remote_addr zone=hc_ai:10m rate=6r/m;
+
+server {
+    listen 8080;
+    server_name _;
+    root /usr/share/nginx/html;
+
+    # Real client IP from the shared reverse proxy (Docker network).
+    set_real_ip_from 172.16.0.0/12;
+    set_real_ip_from 10.0.0.0/8;
+    set_real_ip_from 192.168.0.0/16;
+    real_ip_header X-Real-IP;
+
+    client_max_body_size 12m;
+    resolver 127.0.0.11 valid=10s ipv6=off;
+
+    add_header X-Content-Type-Options nosniff always;
+    add_header Referrer-Policy same-origin always;
+    add_header X-Frame-Options DENY always;
+
+    location = /healthz {
+        access_log off;
+        default_type text/plain;
+        return 200 "ok\n";
+    }
+
+    # Hashed assets can be cached forever; index.html must always be fresh.
+    location /assets/ {
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+        try_files $uri =404;
+    }
+
+    location / {
+        add_header Cache-Control "no-cache";
+        try_files $uri $uri/ /index.html;
+    }
+
+    # The browser does not log in; token issuing is not exposed through the frontend.
+    location = /api/auth/token/ {
+        return 404;
+    }
+
+    # AI endpoints are expensive: stricter rate limit.
+    location ~ ^/api/cases/[0-9a-fA-F-]+/(extract|bundle|suggestions)/$ {
+        limit_req zone=hc_ai burst=6 nodelay;
+        limit_req_status 429;
+        set $hesabcheck_backend hesabcheck-web:8000;
+        proxy_pass http://$hesabcheck_backend;
+        include /etc/nginx/conf.d/backend-proxy.inc;
+    }
+
+    location /api/ {
+        limit_req zone=hc_api burst=40 nodelay;
+        limit_req_status 429;
+        set $hesabcheck_backend hesabcheck-web:8000;
+        proxy_pass http://$hesabcheck_backend;
+        include /etc/nginx/conf.d/backend-proxy.inc;
+    }
+}

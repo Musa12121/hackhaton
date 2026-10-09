@@ -1,0 +1,11 @@
+SATINALMA SİFARİŞİ № SS-2026-114
+Tarix: 01.10.2026
+Alıcı: Kodentix MMC     Təchizatçı: Ofis Təchizat MMC
+Valyuta: AZN
+
+#  SKU         Məhsul                       Miqdar  Vahid  Qablaşdırma  Qiymət   Cəm
+1  PAP-A4-80   A4 kağız 80 q/m² (500 vərəq)  50      qutu   1            14.00    700.00
+2  PEN-BL-01   Mavi diyircəkli qələm         200     ədəd   1            0.50     100.00
+3  TON-59A     HP 59A toner kartrici         4       ədəd   1            89.00    356.00
+
+Mal cəmi (ƏDV-siz): 1156.00 AZN

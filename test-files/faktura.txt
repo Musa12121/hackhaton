@@ -1,0 +1,12 @@
+TAX-FREE COMMERCIAL INVOICE  No. INV-OT-5530
+Date: 06.10.2026
+Seller: Ofis Techizat LLC        Buyer: Kodentix MMC
+Currency: AZN      Ref. PO: SS-2026-114
+
+Line  Item code   Description                     Qty   Unit    Pack  Unit price  Amount
+1     PAP-A4-80   Copy paper A4 80gsm (box)        50    box     1     14.00       700.00
+2     PEN-BL-01   Ballpoint pen, blue              200   piece   1     0.55        110.00
+3     TON-59A     HP 59A toner cartridge           4     piece   1     89.00       356.00
+
+Goods subtotal: 1166.00 AZN
+No tax, discount or shipping.
