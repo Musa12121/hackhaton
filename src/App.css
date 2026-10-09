@@ -1672,3 +1672,359 @@ button:disabled:hover {
     flex-direction: column;
   }
 }
+
+/* =====================================================================
+   Responsive layer — phones (≤680px), tablets (≤960px), wide screens (≥1600px)
+   ===================================================================== */
+
+/* Grid children may shrink below their content (wide tables scroll inside instead of stretching the page). */
+.page-layout {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.page-layout > *,
+.simple-grid > *,
+.bottom-grid > *,
+.doc-grid > *,
+.action-grid > *,
+.settings-grid > *,
+.report-grid > *,
+.hero-section > * {
+  min-width: 0;
+}
+
+.doc-file,
+.field-card strong,
+.suggestion-row strong,
+.suggestion-row span,
+.document-row strong,
+.document-row span,
+.notice span,
+.letter-body,
+.history-list pre,
+.url {
+  overflow-wrap: anywhere;
+}
+
+.match-table-wrap,
+.mini-table-wrap {
+  -webkit-overflow-scrolling: touch;
+}
+
+.section-heading.inline {
+  flex-wrap: wrap;
+}
+
+.section-heading.inline > div:first-child {
+  flex: 1 1 320px;
+  min-width: 0;
+}
+
+.heading-actions {
+  flex-shrink: 0;
+}
+
+.app-shell {
+  padding-left: max(24px, env(safe-area-inset-left));
+  padding-right: max(24px, env(safe-area-inset-right));
+}
+
+/* Wide screens */
+@media (min-width: 1600px) {
+  .topbar,
+  .hero-section,
+  .bottom-grid,
+  .page-layout {
+    width: min(1320px, 100%);
+  }
+}
+
+/* Tablets and small laptops */
+@media (max-width: 960px) {
+  .page-tabs {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    width: 100%;
+    overflow: visible;
+  }
+
+  .page-tab {
+    padding: 0 6px;
+  }
+
+  .hero-visual {
+    min-height: 300px;
+  }
+
+  .header-meta {
+    gap: 10px 14px;
+  }
+
+  .report-card {
+    min-height: 0;
+  }
+}
+
+/* Phones */
+@media (max-width: 680px) {
+  .app-shell {
+    padding: 12px max(12px, env(safe-area-inset-right)) 24px max(12px, env(safe-area-inset-left));
+  }
+
+  .topbar {
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .page-tabs {
+    padding: 4px;
+    gap: 2px;
+  }
+
+  .page-tab {
+    min-height: 38px;
+    font-size: 13px;
+  }
+
+  /* Dashboard hero */
+  .hero-section {
+    gap: 22px;
+    min-height: 0;
+    padding: 22px 18px;
+  }
+
+  .hero-copy h1 {
+    font-size: 34px;
+  }
+
+  .hero-text {
+    margin: 16px 0 20px;
+    font-size: 16px;
+  }
+
+  .hero-visual {
+    min-height: 0;
+    padding: 18px;
+  }
+
+  .hero-visual::before,
+  .layer-art {
+    display: none;
+  }
+
+  .risk-card {
+    position: static;
+    padding: 18px;
+  }
+
+  .risk-card strong {
+    font-size: 36px;
+  }
+
+  /* Panels and headers */
+  .page-header {
+    padding: 20px 18px;
+  }
+
+  .page-header h1 {
+    font-size: 30px;
+  }
+
+  .page-header p {
+    font-size: 15px;
+  }
+
+  .upload-panel,
+  .evidence-panel,
+  .letter-panel,
+  .settings-panel,
+  .report-card,
+  .clean-panel {
+    padding: 16px;
+  }
+
+  .section-heading h2 {
+    font-size: 20px;
+  }
+
+  /* In the stacked (column) heading, flex-basis would become a height. */
+  .section-heading.inline > div:first-child {
+    flex: 0 0 auto;
+  }
+
+  .heading-actions {
+    width: 100%;
+  }
+
+  .heading-actions button {
+    flex: 1 1 auto;
+  }
+
+  .header-meta button,
+  .header-meta .delete-button {
+    flex: 1 1 auto;
+  }
+
+  .compact,
+  .delete-button {
+    min-height: 40px;
+  }
+
+  /* Forms: 16px prevents iOS from zooming into focused inputs */
+  .form-field input,
+  .form-field select,
+  .form-field textarea,
+  .json-editor textarea {
+    font-size: 16px;
+  }
+
+  .json-editor textarea {
+    min-height: 260px;
+  }
+
+  .editor-toolbar {
+    flex-wrap: wrap;
+  }
+
+  /* Lists */
+  .case-list-row .delete-button {
+    align-self: center;
+  }
+
+  .history-list li > div {
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .doc-card,
+  .action-card {
+    padding: 14px;
+  }
+
+  .bundle-upload {
+    align-items: flex-start;
+    padding: 14px;
+  }
+
+  .mapping-row .ghost-button {
+    margin-bottom: 0;
+  }
+
+  .doc-actions > button {
+    flex: 1 1 auto;
+  }
+
+  /* Result */
+  .result-overview h2 {
+    font-size: 24px;
+  }
+
+  .result-amount strong {
+    font-size: 28px;
+  }
+
+  .report-card strong {
+    font-size: 26px;
+  }
+
+  .pending-banner button {
+    width: 100%;
+  }
+
+  .letter-body {
+    padding: 14px;
+    font-size: 14px;
+  }
+
+  /* Line table becomes one card per product */
+  .match-table-wrap {
+    overflow: visible;
+  }
+
+  .match-table {
+    min-width: 0;
+  }
+
+  .match-table thead {
+    display: none;
+  }
+
+  .match-table,
+  .match-table tbody,
+  .match-table tr,
+  .match-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .match-table tr {
+    padding: 14px;
+    border-bottom: 1px solid #edf2f7;
+  }
+
+  .match-table tr:last-child {
+    border-bottom: 0;
+  }
+
+  .match-table td {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 6px 0;
+    border: 0;
+  }
+
+  .match-table td::before {
+    content: attr(data-label);
+    flex-shrink: 0;
+    color: #667085;
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+
+  .match-table td > div {
+    text-align: right;
+  }
+
+  .match-table td span {
+    display: inline;
+    margin: 0 0 0 6px;
+  }
+
+  .match-table td:first-child {
+    display: block;
+    min-width: 0;
+    padding-bottom: 10px;
+  }
+
+  .match-table td:first-child::before {
+    content: none;
+  }
+
+  .match-table td:first-child span {
+    display: block;
+    margin: 4px 0 0;
+  }
+}
+
+/* Small phones */
+@media (max-width: 400px) {
+  .page-tab {
+    padding: 0 2px;
+    font-size: 12px;
+  }
+
+  .hero-copy h1 {
+    font-size: 30px;
+  }
+
+  .page-header h1 {
+    font-size: 26px;
+  }
+
+  .brand {
+    font-size: 16px;
+  }
+}

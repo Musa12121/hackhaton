@@ -56,19 +56,19 @@ export function MatchesTable({ report }) {
             const status = statusInfo(MATCH_STATUS, match.status)
             return (
               <tr key={index}>
-                <td>
+                <td data-label="Məhsul">
                   <strong>{formatValue(invoice.values.name || order.values.name)}</strong>
                   <span>
                     SKU: {formatValue(order.values.sku)} · Vahid: {formatValue(order.values.unit)} · Qablaşdırma: {formatValue(order.values.pack_size)}
                   </span>
                   {match.differences.map((text) => <span className="diff-text" key={text}>{text}</span>)}
                 </td>
-                <td>{formatValue(order.values.quantity)}<span>sətir {order.line + 1}</span></td>
-                <td>{receipt ? <>{formatValue(receipt.values.quantity)}<span>sətir {receipt.line + 1}</span></> : <span>Qəbul sənədi yoxdur</span>}</td>
-                <td>{formatValue(invoice.values.quantity)}<span>sətir {invoice.line + 1}</span></td>
-                <td>{formatAmount(order.values.unit_price)} / {formatAmount(invoice.values.unit_price)}</td>
-                <td>{match.disputed_amount === null ? 'Yoxlama' : formatAmount(match.disputed_amount, report.currency)}</td>
-                <td><Badge tone={status.tone}>{status.label}</Badge></td>
+                <td data-label="Sifariş"><div>{formatValue(order.values.quantity)}<span>sətir {order.line + 1}</span></div></td>
+                <td data-label="Qəbul"><div>{receipt ? <>{formatValue(receipt.values.quantity)}<span>sətir {receipt.line + 1}</span></> : <span>Qəbul sənədi yoxdur</span>}</div></td>
+                <td data-label="Faktura"><div>{formatValue(invoice.values.quantity)}<span>sətir {invoice.line + 1}</span></div></td>
+                <td data-label="Qiymət"><div>{formatAmount(order.values.unit_price)} / {formatAmount(invoice.values.unit_price)}</div></td>
+                <td data-label="Fərq"><div>{match.disputed_amount === null ? 'Yoxlama' : formatAmount(match.disputed_amount, report.currency)}</div></td>
+                <td data-label="Status"><div><Badge tone={status.tone}>{status.label}</Badge></div></td>
               </tr>
             )
           })}
